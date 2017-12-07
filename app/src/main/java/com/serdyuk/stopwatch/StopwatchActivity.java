@@ -1,10 +1,13 @@
 package com.serdyuk.stopwatch;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
-public class StopwatchActivity extends AppCompatActivity {
+public class StopwatchActivity extends Activity {
+    private int seconds = 0;
+    private boolean isRuning = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -13,14 +16,31 @@ public class StopwatchActivity extends AppCompatActivity {
     }
 
     public void onClickStart(View view) {
-        System.out.println("Clicked!");
+        isRuning = true;
     }
 
     public void onClickStop(View view) {
-        System.out.println("Clicked!");
+        isRuning = false;
     }
 
     public void onClickReset(View view) {
-        System.out.println("Clicked!");
+        isRuning = false;
+        seconds = 0;
+    }
+
+    private void runTimer() {
+        final TextView timeView = (TextView) findViewById(R.id.time_view);
+
+        int hours = seconds/3600;
+        int minutes = (seconds%3600)/60;
+        int secs = seconds%60;
+
+        String time = String.format("%d:%02d:%02d", hours, minutes, secs);
+
+        timeView.setText(time);
+
+        if (isRuning) {
+            seconds++;
+        }
     }
 }
