@@ -29,7 +29,7 @@ public class StopwatchActivity extends Activity {
     /**
      * Method for saving app states
      * And then, you can send this states in any method. for example: onCreate()
-     * */
+     */
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         savedInstanceState.putInt("seconds", seconds);
@@ -57,9 +57,9 @@ public class StopwatchActivity extends Activity {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                int hours = seconds/3600;
-                int minutes = (seconds%3600)/60;
-                int secs = seconds%60;
+                int hours = seconds / 3600;
+                int minutes = (seconds % 3600) / 60;
+                int secs = seconds % 60;
 
                 @SuppressLint("DefaultLocale")
                 String time = String.format("%d:%02d:%02d", hours, minutes, secs);
