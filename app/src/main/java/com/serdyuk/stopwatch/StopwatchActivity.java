@@ -10,6 +10,7 @@ import android.widget.TextView;
 public class StopwatchActivity extends Activity {
     private int seconds = 0;
     private boolean isRunning = false;
+    private boolean wasRunning;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +23,7 @@ public class StopwatchActivity extends Activity {
         if (savedInstanceState != null) {
             seconds = savedInstanceState.getInt("seconds");
             isRunning = savedInstanceState.getBoolean("isRunning");
+            wasRunning = savedInstanceState.getBoolean("wasRunning");
         }
         runTimer();
     }
@@ -34,7 +36,49 @@ public class StopwatchActivity extends Activity {
     public void onSaveInstanceState(Bundle savedInstanceState) {
         savedInstanceState.putInt("seconds", seconds);
         savedInstanceState.putBoolean("isRunning", isRunning);
+        savedInstanceState.putBoolean("wasRunning", wasRunning);
+    }
+//
+//    /**
+//     * When app go to stop: timer should be stopped
+//     * */
+//    @Override
+//    public void onStop() {
+//        super.onStop();
+//        wasRunning = isRunning;
+//        isRunning = false;
+//    }
+//
+//    /**
+//     * When app is active: timer should work again
+//     * */
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        if (wasRunning) {
+//            isRunning = true;
+//        }
+//    }
 
+    /**
+     * When app go to stop: timer should be stopped
+     * */
+    @Override
+    public void onPause() {
+        super.onPause();
+        wasRunning = isRunning;
+        isRunning = false;
+    }
+
+    /**
+     * When app is active: timer should work again
+     * */
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (wasRunning) {
+            isRunning = true;
+        }
     }
 
     public void onClickStart(View view) {
